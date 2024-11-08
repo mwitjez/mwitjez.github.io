@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto";
+        background: #0f172a;
+        color: #e2e8f0;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        height: 100vh;
+      }
+
+      .left-column {
+        position: sticky;
+        top: 2rem;
+        height: fit-content;
+        padding: 0;
+      }
+
+      .right-column {
+        height: calc(100vh - 4rem);
+        overflow-y: auto;
+        scroll-behavior: smooth;
+        padding-right: 1rem;
+      }
+
+      .right-column::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .right-column::-webkit-scrollbar-track {
+        background: rgba(30, 41, 59, 0.3);
+        border-radius: 4px;
+      }
+
+      .right-column::-webkit-scrollbar-thumb {
+        background: rgba(30, 41, 59, 0.5);
+        border-radius: 4px;
+      }
+
+      .section {
+        margin-bottom: 4rem;
+      }
+
+      .nav-menu {
+        margin-top: 3rem;
+      }
+
+      .nav-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 0.75rem 0;
+      }
+
+      .nav-line {
+        width: 20px;
+        height: 2px;
+        background-color: #60a5fa;
+        transition: width 0.3s ease;
+      }
+
+      .nav-item:hover .nav-line {
+        width: 40px;
+      }
+
+      .nav-menu a {
+        color: #94a3b8;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        font-size: 1.1rem;
+      }
+
+      .nav-item:hover a {
+        color: #fff;
+        transform: translateX(5px);
+      }
+
+      .intro-text {
+        max-width: 300px;
+        font-family: "Source Code Pro", sans-serif;
+        color: #94a3b8;
+        font-size: 1.1rem;
+        line-height: 1.6;
+      }
+
+      .secondary-text {
+        color: #94a3b8;
+      }
+
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #e5e5e5;
+        line-height: 1.2;
+      }
+
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1.5rem;
+        color: #e5e5e5;
+        scroll-margin-top: 2rem;
+      }
+
+      h3 {
+        color: #e5e5e5;
+        margin-bottom: 0.5rem;
+      }
+
+      p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      .project {
+        background: rgba(30, 41, 59, 0.5);
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        margin-bottom: 1.5rem;
+        backdrop-filter: blur(8px);
+        transition: transform 0.3s ease;
+      }
+
+      .tech-stack {
+        display: inline-block;
+        /* Adjusts the width to fit the text */
+        background-color: rgba(30, 41, 59, 0.7);
+        /* Darker background with transparency */
+        color: #60a5fa;
+        /* Text color */
+        padding: 0.25rem 0.5rem;
+        /* Smaller padding for a tighter fit */
+        border-radius: 1rem;
+        /* More rounded corners */
+        margin-top: 0.5rem;
+        /* Remove any margin */
+        font-size: 0.875rem;
+        /* Optional: Adjust font size for a more compact look */
+      }
+
+      .project:hover {
+        transform: translateX(5px);
+      }
+
+      .glow {
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(
+          circle,
+          rgba(96, 165, 250, 0.15) 0%,
+          rgba(96, 165, 250, 0) 70%
+        );
+        position: fixed;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+      }
+
+      .project-link-wrapper {
+        text-decoration: none;
+        color: inherit;
+        /* Inherit text color */
+      }
+
+      .top-right-arrow {
+        position: absolute;
+        top: 20px;
+        right: 15px;
+        width: 20px;
+        height: 20px;
+      }
+
+      .contact-icons {
+        display: flex;
+        gap: 1.5rem;
+        margin-top: 1rem;
+      }
+
+      .contact-icon {
+        width: 2rem;
+        height: 2rem;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .contact-icon:hover {
+        transform: translateY(-2px);
+        opacity: 0.8;
+      }
+
+      .contact-icon svg {
+        width: 100%;
+        height: 100%;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          grid-template-columns: 1fr;
+          height: auto;
+        }
+
+        .right-column {
+          height: auto;
+          overflow-y: visible;
+        }
+
+        .left-column {
+          position: relative;
+          top: 0;
+        }
+
+        .intro-text {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="glow" id="glow"></div>
+
+    <div class="container">
+      <div class="left-column">
+        <h1>
+          Mateusz <br />
+          Witka-Jeżewski
+        </h1>
+        <p class="intro-text">
+          AI Engineer <br />
+          with robotic background.
+        </p>
+
+        <nav class="nav-menu">
+          <div class="nav-item">
+            <div class="nav-line"></div>
+            <a href="#about">About Me</a>
+          </div>
+          <div class="nav-item">
+            <div class="nav-line"></div>
+            <a href="#projects">Projects</a>
+          </div>
+          <div class="nav-item">
+            <div class="nav-line"></div>
+            <a href="#experience">Experience</a>
+          </div>
+          <div class="nav-item">
+            <div class="nav-line"></div>
+            <a href="#contact">Contact</a>
+          </div>
+        </nav>
+      </div>
+
+      <!-- Rest of the content remains the same -->
+      <div class="right-column">
+        <section id="about" class="section">
+          <h2>About Me</h2>
+          <p>
+            Hello! I’m an AI engineer and developer with a deep appreciation for
+            great design and engineering, dedicated to building technology that
+            can make a positive impact on the world. <br /><br />
+            Professionally, my focus is on developing intelligent, responsive AI
+            applications, but I’m equally enthusiastic about experimenting with
+            new tools and ideas in my spare time. Currently, I’m expanding into
+            robotics and simulation, where I’m developing a reinforcement
+            learning model for a biped robot—a project that combines my love for
+            AI and hands-on engineering.
+            <br /><br />
+            My core tech stack includes Python, PyTorch, FastAPI, and Docker,
+            and lately, I’ve been diving into web development with Svelte and
+            JavaScript to broaden my capabilities.
+          </p>
+        </section>
+
+        <section id="projects" class="section">
+          <h2>Projects</h2>
+          <a
+            href="https://github.com/mwitjez/GeoTagrBacked"
+            class="project-link-wrapper"
+            target="_blank"
+          >
+            <div class="project">
+              <h3>GeoTagr</h3>
+              <p class="secondary-text">
+                AI tool that predicts the geographical location of photos using
+                a LangChain-based agent system powered by Google's Gemini Flash
+                1.5 LLM.
+              </p>
+              <p class="tech-stack">Python</p>
+              <p class="tech-stack">Langgraph</p>
+              <p class="tech-stack">LLM</p>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="top-right-arrow"
+              >
+                <g id="SVGRepo_iconCarrier">
+                  <g id="Interface / External_Link">
+                    <path
+                      id="Vector"
+                      d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                      stroke="#E5E5E5"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/mwitjez/CountryGuesser"
+            class="project-link-wrapper"
+            target="_blank"
+          >
+            <div class="project">
+              <h3>Country Guesser</h3>
+              <p class="secondary-text">
+                A Vision Transformer (ViT) based model for classifying countries
+                from photos. The fine-tuned model achieves 85% accuracy on the
+                validation dataset.
+              </p>
+              <p class="tech-stack">Python</p>
+              <p class="tech-stack">Pytorch</p>
+              <p class="tech-stack">Pandas</p>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="top-right-arrow"
+              >
+                <g id="SVGRepo_iconCarrier">
+                  <g id="Interface / External_Link">
+                    <path
+                      id="Vector"
+                      d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                      stroke="#E5E5E5"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/mwitjez/Optimal-packing"
+            class="project-link-wrapper"
+            target="_blank"
+          >
+            <div class="project">
+              <h3>Optimal Packing</h3>
+              <p class="secondary-text">
+                An algorithm to solve 2D and 3D optimal packing problems using
+                genetic algorithms and neuroevolution techniques. It compares
+                the performance of various methods and incorporates a mobile app
+                with AR visualization for an interactive experience. <br />
+                This project was part of my masters thesis.
+              </p>
+              <p class="tech-stack">Python</p>
+              <p class="tech-stack">Pytorch</p>
+              <p class="tech-stack">Swift</p>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                class="top-right-arrow"
+              >
+                <g id="SVGRepo_iconCarrier">
+                  <g id="Interface / External_Link">
+                    <path
+                      id="Vector"
+                      d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                      stroke="#E5E5E5"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    ></path>
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </a>
+
+          <a
+            href="https://github.com/mwitjez/Voice-controlled-arm/"
+            class="project-link-wrapper"
+            target="_blank"
+          >
+            <div class="project">
+              <h3>Voice Controlled Robotic Arm</h3>
+              <p class="secondary-text">
+                A voice-controlled 3d printed robotic arm featuring a
+                custom-designed PCB and programmed in Python. The arm is
+                integrated with Amazon Alexa, enabling users to control its
+                movements through simple voice commands. <br />
+                This project was part of my engineering thesis.
+              </p>
+              <p class="tech-stack">AWS</p>
+              <p class="tech-stack">Python</p>
+              <p class="tech-stack">PCB Design</p>
+              <p class="tech-stack">3D Printing</p>
+              <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              class="top-right-arrow"
+            >
+              <g id="SVGRepo_iconCarrier">
+                <g id="Interface / External_Link">
+                  <path
+                    id="Vector"
+                    d="M10.0002 5H8.2002C7.08009 5 6.51962 5 6.0918 5.21799C5.71547 5.40973 5.40973 5.71547 5.21799 6.0918C5 6.51962 5 7.08009 5 8.2002V15.8002C5 16.9203 5 17.4801 5.21799 17.9079C5.40973 18.2842 5.71547 18.5905 6.0918 18.7822C6.5192 19 7.07899 19 8.19691 19H15.8031C16.921 19 17.48 19 17.9074 18.7822C18.2837 18.5905 18.5905 18.2839 18.7822 17.9076C19 17.4802 19 16.921 19 15.8031V14M20 9V4M20 4H15M20 4L13 11"
+                    stroke="#E5E5E5"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </g>
+              </g>
+            </svg>
+            </div>
+          </a>
+        </section>
+
+        <section id="experience" class="section">
+          <h2>Experience</h2>
+          <div class="project">
+            <h3>AI Engineer - Vee</h3>
+            <p class="secondary-text">June 2022 - Present</p>
+            <p class="secondary-text">
+              Performed data analysis, preprocessing, and feature engineering
+              for data science tasks, and implemented transformer-based neural
+              networks to enhance NLP systems. Fine-tuned large language models
+              for specialized applications and developed RESTful APIs to
+              integrate AI models into production. Leveraged Docker for
+              consistent deployment, designed and deployed microservices with
+              diverse NLP algorithms, and created an interactive application
+              with Streamlit and LangChain using Retrieval-Augmented Generation.
+              Regularly conducted code reviews to improve code quality and
+              facilitate team knowledge sharing.
+            </p>
+            <p class="tech-stack">Python</p>
+            <p class="tech-stack">Docker</p>
+            <p class="tech-stack">FastAPI</p>
+            <p class="tech-stack">Tensorflow</p>
+            <p class="tech-stack">Scikit-learn</p>
+            <p class="tech-stack">Pandas</p>
+            <p class="tech-stack">NumPy</p>
+            <p class="tech-stack">Streamlit</p>
+            <p class="tech-stack">LangChain</p>
+            <p class="tech-stack">Git</p>
+          </div>
+          <div class="project">
+            <h3>Internship - Skalp Robotics Association</h3>
+            <p class="secondary-text">July 2021</p>
+            <p class="secondary-text">
+              Developed Python scripts to automate key functions and enhance
+              interactivity for the "Do You Feel Connected?" installation.
+              Configured secure VPN servers and utilized 3D printing to
+              prototype custom components.
+            </p>
+            <p class="tech-stack">Python</p>
+            <p class="tech-stack">3D Printing</p>
+          </div>
+          <div class="project">
+            <h3>PLC Programmer - Grupa ARA</h3>
+            <p class="secondary-text">August 2020 - October 2020</p>
+            <p class="secondary-text">
+              Implemented PLC-based automation solutions for brewery
+              modernization project
+            </p>
+            <p class="tech-stack">STL</p>
+          </div>
+        </section>
+
+        <section id="contact" class="section">
+          <h2>Contact</h2>
+          <div class="contact-icons">
+            <a
+              href="mailto:m.w.jezewski@gmail.com"
+              class="contact-icon"
+              aria-label="Email"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#60a5fa"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                ></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </a>
+            <a
+              href="https://github.com/mwitjez"
+              target="_blank"
+              class="contact-icon"
+              aria-label="GitHub"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#60a5fa"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"
+                ></path>
+              </svg>
+            </a>
+            <a
+              href="https://www.linkedin.com/in/mwitkajezewski/"
+              target="_blank"
+              class="contact-icon"
+              aria-label="LinkedIn"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#60a5fa"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"
+                ></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+            </a>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("mousemove", (e) => {
+        const glow = document.getElementById("glow");
+        glow.style.left = e.clientX + "px";
+        glow.style.top = e.clientY + "px";
+      });
+    </script>
+  </body>
+</html>
